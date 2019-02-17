@@ -1,0 +1,131 @@
+:root {
+  --font-family: 'Montserrat', sans-serif;
+  --regular: 400;
+  --bold: 700;
+  
+  --primary-color: #ff0066;
+  --secondary-color: #333333;
+  --background-color: #fafafa;
+
+  --code-text-color: #f8f8f8;
+  --code-background-color: #424242;
+}
+
+body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-family);
+  color: var(--secondary-color);
+}
+
+body * {
+  box-sizing: inherit;
+}
+
+/************************************
+********* Degradado *****************
+*************************************/
+@function randomColor($color, $i){
+  @return hsl($color, ($i * 10) * 1%, ($i * 10) * 1%);
+}
+
+$color: random(360);
+@for $i from 1 through 10 {
+  li:nth-child(#{$i}) {
+    background-color: randomColor($color, $i);
+  }
+}
+
+ul{
+  display: flex;
+  padding: 0;
+}
+
+li{
+  list-style: none;
+  flex-grow: 1;
+  height: 50px;
+}
+
+
+/************************************
+****Creador de selectores en Loop****
+*************************************/
+$offset: (
+    0: 0,
+    8: 0.5rem,
+    16: 1rem,
+    24: 1.5rem,
+    32: 2rem,
+    40: 2.5rem,
+    48: 3rem
+);
+
+$position: (
+    n: 0,
+    t: top,
+    l: left,
+    b: bottom,
+    r: right,
+);
+
+
+@each $element, $size in $offset{
+  @each $item, $value in $position{
+    @if($item == n){
+      .m-#{$element} {
+        margin:$size;
+      }
+    }@else{
+      .m#{$item}-#{$element} {
+        margin-#{$value}: $size;
+      }
+    }
+  }
+}
+
+@each $element, $size in $offset{
+  @each $item, $value in $position{
+    @if($item == n){
+      .p-#{$element} {
+        margin:$size;
+      }
+    }@else{
+      .p#{$item}-#{$element} {
+        margin-#{$value}: $size;
+      }
+    }
+  }
+}
+
+
+/************************************
+************** Buttons ***************
+*************************************/
+%buttons{
+  background-color: #fff;
+  border: 0;
+  margin: 5px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.wrapper{
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ccc;
+
+  & button{
+    flex-basis: 23%;
+    @extend %buttons;
+
+    a{
+      text-decoration: none;
+    }
+  }
+}
